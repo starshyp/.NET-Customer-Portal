@@ -1,0 +1,72 @@
+﻿@*@using MultipleModelInOneView;*@
+@model dynamic
+@{
+    ViewData["Title"] = "Intervention";
+}
+@*@model IEnumerable<Building>
+    @model IEnumerable<Battery>*@
+
+
+<link href="dashboard.css" rel="stylesheet">
+
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Intervention Form</h1>
+    </div>
+
+    <form method="post" name="" id="">
+        <div class="row">
+            <div class="col-md-3">
+                <select class="custom-select">
+                    <option selected>Select Building</option>
+                    @foreach (Building b in Model.Buildings)
+                    {
+                        <option value="@b.id">@b.id</option>
+                    }
+                </select>
+
+                <select class="custom-select">
+                    <option selected>Select Battery</option>
+                    @foreach (Battery batt in Model.Batteries)
+                    {
+                        <option value="@batt.id">@batt.id</option>
+                    }
+                </select>
+                <select class="custom-select">
+                    <option selected>Select Column</option>
+                    @foreach (Column col in Model.Columns)
+                    {
+                        <option value="@col.id">@col.id</option>
+                    }
+                </select>
+                <select class="custom-select">
+                    <option selected>Select Elevator</option>
+                    @foreach (Elevator elev in Model.Elevators)
+                    {
+                        <option value="@elev.id">@elev.id</option>
+                    }
+                </select>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <label for="textarea">Report</label><br />
+                        <textarea id="textarea" rows="5" cols="40"></textarea>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <button onclick="" class="btn btn-primary"><i class="fa fa-check"></i> SUBMIT </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </form>
+
+</main>
+
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" crossorigin="anonymous"></script>
+<script src="~/js/dashboard.js"></script>

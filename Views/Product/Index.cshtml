@@ -1,0 +1,192 @@
+﻿@{
+    ViewData["Title"] = "Products";
+}
+@model dynamic
+
+<link href="dashboard.css" rel="stylesheet">
+@*<link rel="stylesheet" href="~/css/dashboard.css" />*@
+
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Products</h1>
+    </div>
+
+
+    @*batteries, columns and elevators*@
+
+    @*Each item will provide direct access to the intervention request form, which should be automatically assigned to the selected product. He will also be able to modify his personal information, such as addresses or contact details.*@
+
+    <h3>Account Info</h3>
+    <div class="table-responsive">
+    <table class="table table-striped table-sm">
+        <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Company</th>
+            <th scope="col">Contact</th>
+            <th scope="col">Phone</th>
+            <th scope="col">Email</th>
+            <th scope="col">Tech Contact</th>
+            <th scope="col">Tech Phone</th>
+            <th scope="col">Tech Email</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (Customer cust in Model.Customer)
+        {
+            <tr>
+                <td>@cust.id</td>
+                <td>@cust.CompanyName</td>
+                <td>@cust.NameOfContact</td>
+                <td>@cust.CompanyContactPhone</td>
+                <td>@cust.EmailOfTheCompany</td>
+                <td>@cust.NameOfServiceTechAuthority</td>
+                <td>@cust.TechAuhtorityPhone</td>
+                <td>@cust.TechManagerServiceEmail</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+    </div>
+
+        <div class="table-responsive">
+            <table class="table table-striped table-sm">
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Type</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Entity</th>
+                        <th scope="col">Street</th>
+                        <th scope="col">Suite</th>
+                        <th scope="col">City</th>
+                        <th scope="col">Zip</th>
+                        <th scope="col">Country</th>
+                        <th scope="col">Notes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (Address add in Model.Address)
+                    {
+                    <tr>
+                        <td>@add.id</td>
+                        <td>@add.TypeOfAddress</td>
+                        <td>@add.Status</td>
+                        <td>@add.Entity</td>
+                        <td>@add.NumberAndStreet</td>
+                        <td>@add.Apt</td>
+                        <td>@add.City</td>
+                        <td>@add.PostalCode</td>
+                        <td>@add.Country</td>
+                        <td>@add.Notes</td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>
+
+        <h3>Batteries</h3>
+        <div class="table-responsive">
+            <table class="table table-striped table-sm">
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Type</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Commission</th>
+                        <th scope="col">Inspected</th>
+                        <th scope="col">Certified by</th>
+                        <th scope="col">Info</th>
+                        <th scope="col">Notes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (Battery batt in Model.Batteries)
+                    {
+                        <tr>
+                            <td>@batt.id</td>
+                            <td>@batt.BType</td>
+                            <td>@batt.Status</td>
+                            <td>@batt.DateOfCommissioning</td>
+                            <td>@batt.DateOfLastInspection</td>
+                            <td>@batt.CertificateOfOperations</td>
+                            <td>@batt.Info</td>
+                            <td>@batt.Notes</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <h3>Columns</h3>
+        <div class="table-responsive">
+            <table class="table table-striped table-sm">
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Type</th>
+                        <th scope="col">Floors</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Info</th>
+                        <th scope="col">Notes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (Column col in Model.Columns)
+                    {
+                        <tr>
+                            <td>@col.id</td>
+                            <td>@col.ColumnType</td>
+                            <td>@col.NbOfFloorsServed</td>
+                            <td>@col.Status</td>
+                            <td>@col.Info</td>
+                            <td>@col.Notes</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <h3>Elevators</h3>
+        <div class="table-responsive">
+            <table class="table table-striped table-sm">
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Serial #</th>
+                        <th scope="col">Model</th>
+                        <th scope="col">Type</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Commission</th>
+                        <th scope="col">Inspected</th>
+                        <th scope="col">Certified by</th>
+                        <th scope="col">Info</th>
+                        <th scope="col">Notes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (Elevator elev in Model.Elevators)
+                    {
+                        <tr>
+                            <td>@elev.id</td>
+                            <td>@elev.SerialNumber</td>
+                            <td>@elev.Model</td>
+                            <td>@elev.ElevatorType</td>
+                            <td>@elev.Status</td>
+                            <td>@elev.DateOfCommissioning</td>
+                            <td>@elev.DateOfLastInspection</td>
+                            <td>@elev.CertificateOfInspection</td>
+                            <td>@elev.Info</td>
+                            <td>@elev.Notes</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+</main>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" crossorigin="anonymous"></script>
+    <script src="~/js/dashboard.js"></script>

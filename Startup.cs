@@ -4,7 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -24,6 +26,27 @@ namespace RocketElevatorsCustomerPortal
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddRazorPages();
+            
+            services.ConfigureApplicationCookie(options => options.LoginPath = "/Identity/Account/Login");
+
+            //services.Configure<IdentityOptions>(opt =>
+            //{
+            //    opt.Cookies.ApplicationCookie.LoginPath = new PathString("/Identity/Account/Login");
+            //});
+
+            //services.AddMvc().AddRazorPagesOptions(options =>
+            //{
+            //    options.Conventions.AddPageRoute("/Identity/Account/Login", "");
+            //});
+
+            //services.AddCors();
+
+            //string _connectionstr = Configuration.GetConnectionString("DefaultConnection");
+
+            //services.AddDbContext<AllContext>(options =>
+            //    options.UseMySql(_connectionstr, ServerVersion.AutoDetect(_connectionstr))
+            //);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -32,6 +55,7 @@ namespace RocketElevatorsCustomerPortal
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseDatabaseErrorPage();
             }
             else
             {
@@ -44,6 +68,7 @@ namespace RocketElevatorsCustomerPortal
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -51,6 +76,7 @@ namespace RocketElevatorsCustomerPortal
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapRazorPages();
             });
         }
     }
