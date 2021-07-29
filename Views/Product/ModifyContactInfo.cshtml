@@ -1,0 +1,100 @@
+﻿@* @model RocketElevatorsCustomerPortal.Views.Product.ModifyContactInfo *@
+@* @model dynamic *@
+
+@{
+    // ViewData["Title"] = "Modify Account";
+    ViewBag.Title = "Modify Account";
+}
+
+@model Customer
+
+<link href="dashboard.css" rel="stylesheet">
+
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+    @* <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"> *@
+    @*     <h1 class="h2">Modify Contact Info</h1> *@
+    @* </div> *@
+
+    <h2>Modify Contact Info <a asp-action="Index" class="btn btn-sm btn-secondary">Back</a></h2>
+    <form method="post">
+        <div class="form-group">
+            <label asp-for="id"></label>
+            <input class="form-control" asp-for="id" readonly />
+        </div>
+        <div class="form-group">
+            <label asp-for="CompanyName"></label>
+            <input class="form-control" asp-for="CompanyName" />
+        </div>
+        <div class="form-group">
+            <label asp-for="NameOfContact"></label>
+            <input class="form-control" asp-for="NameOfContact" />
+        </div>
+        <div class="form-group">
+            <label asp-for="CompanyContactPhone"></label>
+            <input class="form-control" asp-for="CompanyContactPhone" />
+        </div>
+        <div class="form-group">
+            <label asp-for="EmailOfTheCompany"></label>
+            <input class="form-control" asp-for="EmailOfTheCompany" />
+        </div>
+        <div class="form-group">
+            <label asp-for="CompanyDescription"></label>
+            <input class="form-control" asp-for="CompanyDescription" />
+        </div>
+        <div class="form-group">
+            <label asp-for="NameOfServiceTechAuthority"></label>
+            <input class="form-control" asp-for="NameOfServiceTechAuthority" />
+        </div>
+        <div class="form-group">
+            <label asp-for="TechAuhtorityPhone"></label>
+            <input class="form-control" asp-for="TechAuhtorityPhone" />
+        </div>
+        <div class="form-group">
+            <label asp-for="TechManagerServiceEmail"></label>
+            <input class="form-control" asp-for="TechManagerServiceEmail" />
+        </div>
+        <div class="text-center panel-body">
+            <button type="submit" class="btn btn-sm btn-primary">Update</button>
+        </div>
+    </form>
+
+    @if (ViewBag.Result == "Success")
+    {
+        <h2>Account</h2>
+        <table class="table table-sm table-striped table-bordered m-2">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Company</th>
+                    <th scope="col">Contact</th>
+                    <th scope="col">Phone</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">About</th>
+                    <th scope="col">Tech Contact</th>
+                    <th scope="col">Tech Phone</th>
+                    <th scope="col">Tech Email</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr>
+                    <td>@Model.id</td>
+                    <td>@Model.CompanyName</td>
+                    <td>@Model.NameOfContact</td>
+                    <td>@Model.CompanyContactPhone</td>
+                    <td>@Model.EmailOfTheCompany</td>
+                    <td>@Model.CompanyDescription</td>
+                    <td>@Model.NameOfServiceTechAuthority</td>
+                    <td>@Model.TechAuhtorityPhone</td>
+                    <td>@Model.TechManagerServiceEmail</td>
+                </tr>
+
+            </tbody>
+        </table>
+    }
+
+</main>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" crossorigin="anonymous"></script>
+<script src="~/js/dashboard.js"></script>

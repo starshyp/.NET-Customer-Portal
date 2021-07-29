@@ -21,11 +21,13 @@
     <table class="table table-striped table-sm">
         <thead>
         <tr>
+            <th scope="col"></th>
             <th scope="col">ID</th>
             <th scope="col">Company</th>
             <th scope="col">Contact</th>
             <th scope="col">Phone</th>
             <th scope="col">Email</th>
+            <th scope="col">About</th>
             <th scope="col">Tech Contact</th>
             <th scope="col">Tech Phone</th>
             <th scope="col">Tech Email</th>
@@ -35,11 +37,18 @@
         @foreach (Customer cust in Model.Customer)
         {
             <tr>
+                <td>
+                    <a  asp-action="ModifyContactInfo" asp-route-id="@cust.id">
+                        modify
+                    </a>
+                    @* <a asp-page="/ModifyContactInfo" asp-route-id="@cust.id">Test</a> *@
+                </td>
                 <td>@cust.id</td>
                 <td>@cust.CompanyName</td>
                 <td>@cust.NameOfContact</td>
                 <td>@cust.CompanyContactPhone</td>
                 <td>@cust.EmailOfTheCompany</td>
+                <td>@cust.CompanyDescription</td>
                 <td>@cust.NameOfServiceTechAuthority</td>
                 <td>@cust.TechAuhtorityPhone</td>
                 <td>@cust.TechManagerServiceEmail</td>

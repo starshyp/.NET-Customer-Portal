@@ -8,7 +8,6 @@ using System.Net.Http;
 using Newtonsoft.Json;
 using RocketElevatorsCustomerPortal.Models;
 using System.Dynamic;
-using System.Linq;
 
 // reference https://www.yogihosting.com/aspnet-core-consume-api/
 

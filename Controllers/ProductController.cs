@@ -8,7 +8,6 @@ using System.Net.Http;
 using Newtonsoft.Json;
 using RocketElevatorsCustomerPortal.Models;
 using System.Dynamic;
-using System.Linq;
 
 namespace RocketElevatorsCustomerPortal.Controllers
 {
@@ -114,5 +113,50 @@ namespace RocketElevatorsCustomerPortal.Controllers
             }
             return addressList;
         }
+        
+         //Update Contact Info
+         // public async Task<Customer> ModifyContactInfo(int id)
+         public async Task<IActionResult> ModifyContactInfo(int id)
+        {
+            Customer customer = new Customer();
+            using (var httpClient = new HttpClient())
+            {
+                using (var response = await httpClient.GetAsync("https://rocketapis.azurewebsites.net/api/customer/" + id))
+                {
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+                    customer = JsonConvert.DeserializeObject<Customer>(apiResponse);
+                }
+            }
+            return View(customer);
+        }
+        
+        [HttpPost]
+        // public async Task<Customer> ModifyContactInfo(Customer customer)
+        public async Task<IActionResult> ModifyContactInfo(Customer customer)
+        {
+            Customer modifyCustomer = new Customer();
+            using (var httpClient = new HttpClient())
+            {
+                var content = new MultipartFormDataContent();
+                content.Add(new StringContent(customer.id.ToString()), "id");
+                content.Add(new StringContent(customer.CompanyName), "CompanyName");
+                content.Add(new StringContent(customer.NameOfContact), "NameOfContact");
+                content.Add(new StringContent(customer.CompanyContactPhone), "CompanyContactPhone");
+                content.Add(new StringContent(customer.EmailOfTheCompany), "EmailOfTheCompany");
+                content.Add(new StringContent(customer.CompanyDescription), "CompanyDescription");
+                content.Add(new StringContent(customer.NameOfServiceTechAuthority), "NameOfServiceTechAuthority");
+                content.Add(new StringContent(customer.TechAuhtorityPhone), "TechAuhtorityPhone");
+                content.Add(new StringContent(customer.TechManagerServiceEmail), "TechManagerServiceEmail");
+        
+                using (var response = await httpClient.PutAsync("https://rocketapis.azurewebsites.net/api/customer", content))
+                {
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+                    ViewBag.Result = "Success";
+                    modifyCustomer = JsonConvert.DeserializeObject<Customer>(apiResponse);
+                }
+            }
+            return View(modifyCustomer);
+        }
+        
     }
 }

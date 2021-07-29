@@ -1,5 +1,12 @@
 ﻿<Properties StartupConfiguration="{23FDDD02-5153-4A47-9755-F248D6685B5B}|Default">
-  <MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workbench ActiveDocument="Properties/launchSettings.json">
+    <Files>
+      <File FileName="Views/Product/ModifyContactInfo.cshtml" Line="93" Column="17" />
+      <File FileName="appsettings.json" Line="12" Column="34" />
+      <File FileName="Properties/PublishProfiles/rocketportal - Web Deploy.pubxml" Line="16" Column="37" />
+      <File FileName="publish/appsettings.json" Line="1" Column="1" />
+      <File FileName="Properties/launchSettings.json" Line="1" Column="1" />
+    </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
@@ -7,18 +14,17 @@
             <Node name="RocketElevatorsCustomerPortal" expanded="True">
               <Node name="Areas" expanded="True">
                 <Node name="Identity" expanded="True">
-                  <Node name="Data" expanded="True" />
                   <Node name="Pages" expanded="True">
                     <Node name="Account" expanded="True" />
                   </Node>
                 </Node>
               </Node>
               <Node name="Controllers" expanded="True" />
-              <Node name="Migrations" expanded="True" />
-              <Node name="Models" expanded="True">
-                <Node name="Building.cs" selected="True" />
+              <Node name="Models" expanded="True" />
+              <Node name="Properties" expanded="True">
+                <Node name="PublishProfiles" expanded="True" />
+                <Node name="launchSettings.json" selected="True" />
               </Node>
-              <Node name="Properties" expanded="True" />
               <Node name="Views" expanded="True">
                 <Node name="Home" expanded="True" />
                 <Node name="Intervention" expanded="True" />

@@ -182,3 +182,4 @@
 /Users/usr1080/Desktop/Codeboxx/Week 11 - .NET Core/RocketElevatorsCustomerPortal/obj/Debug/netcoreapp3.1/Razor/Areas/Identity/Pages/_ViewImports.cshtml.g.cs
 /Users/usr1080/Desktop/Codeboxx/Week 11 - .NET Core/RocketElevatorsCustomerPortal/obj/Debug/netcoreapp3.1/Razor/Views/Intervention/Index.cshtml.g.cs
 /Users/usr1080/Desktop/Codeboxx/Week 11 - .NET Core/RocketElevatorsCustomerPortal/obj/Debug/netcoreapp3.1/Razor/Views/Product/Index.cshtml.g.cs
+/Users/usr1080/Desktop/Codeboxx/Week 11 - .NET Core/RocketElevatorsCustomerPortal/obj/Debug/netcoreapp3.1/Razor/Views/Product/ModifyContactInfo.cshtml.g.cs

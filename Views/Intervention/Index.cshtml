@@ -66,6 +66,145 @@
 
 </main>
 
+@section Scripts
+{
+                    <script>
+                        $(document).ready(function(){
+                            $("#intervention_building_id").hide();
+                            $("#intervention_battery_id").hide();
+                            $("#intervention_column_id").hide();
+                            $("#intervention_elevator_id").hide();
+                            // $("#description").hide();
+                        });
+    
+                        // $("#building_id").prop("disabled", true);
+                        $('#intervention_customer_id').on('change', function() {
+                            $('#intervention_building_id').show()
+                            $("#intervention_building_id").empty();
+                            $("#intervention_battery_id").empty();
+                            $("#intervention_column_id").empty();
+                            $("#intervention_elevator_id").empty();
+                            // let customer_id = $("#intervention_customer_id option:selected").val();
+                            customer_id = $(this).val();
+                            console.log(customer_id)
+                            $.ajax({
+                                cache: false,
+                                url: 'https://rocketapis.azurewebsites.net/api/building/',
+                                type: 'GET',
+                                dataType: 'json',
+                                data: {
+                                    id: customer_id
+                                },
+                                success: function (data) {
+                                    console.log(data)
+                                    console.log('TEST/////////////')
+                                    var data = data["buildings"]
+                                    console.log(data)
+                                    $("#intervention_building_id").empty();
+                                    $("#intervention_building_id").append('<option>Select Building</option>');
+                                    // $("#building_id").append(new Option('Select Building'));
+                                    for (var i = 0; i < data.length; i++) {
+                                        $("#intervention_building_id").append('<option value="' + data[i]["id"] + '">' + data[i]["id"] + '</option>');
+                                    }
+                                }
+                            })
+                        });
+    
+                        //////////// BATTERY ////////////
+                        $('#intervention_building_id').on('change', function() {
+                            $('#intervention_battery_id').show()
+                            $("#intervention_battery_id").empty();
+                            $("#intervention_column_id").empty();
+                            $("#intervention_elevator_id").empty();
+                            //let building_id = $("#building_id option:selected").val();
+                            building_id = $(this).val();
+                            console.log(building_id)
+                            $.ajax({
+                                cache: false,
+                                url: 'https://rocketapis.azurewebsites.net/api/batteries/',
+                                type: 'GET',
+                                dataType: 'json',
+                                data: {
+                                    id: building_id
+                                },
+                                success: function (data) {
+                                    console.log(data)
+                                    console.log('TEST/////////////')
+                                    var data = data["batteries"]
+                                    console.log(data)
+    
+                                    $("#intervention_battery_id").empty();
+                                    $("#intervention_battery_id").append('<option>Select Battery</option>');
+                                    for (var i = 0; i < data.length; i++) {
+                                        $("#intervention_battery_id").append('<option value="' + data[i]["id"] + '">' + data[i]["id"] + '</option>');
+                                    }
+                                }
+                            })
+                        });
+    
+                        //////////// COLUMN ////////////
+                        $('#intervention_battery_id').on('change', function() {
+                            $('#intervention_column_id').show()
+                            $("#intervention_column_id").empty();
+                            $("#intervention_elevator_id").empty();
+                            //let building_id = $("#building_id option:selected").val();
+                            battery_id = $(this).val();
+                            console.log(battery_id)
+                            $.ajax({
+                                cache: false,
+                                url: 'https://rocketapis.azurewebsites.net/api/columns/',
+                                type: 'GET',
+                                dataType: 'json',
+                                data: {
+                                    id: battery_id
+                                },
+                                success: function (data) {
+                                    console.log(data)
+                                    console.log('TEST/////////////')
+                                    var data = data["columns"]
+                                    console.log(data)
+    
+                                    $("#intervention_column_id").empty();
+                                    $("#intervention_column_id").append('<option>Select Column</option>');
+                                    for (var i = 0; i < data.length; i++) {
+                                        $("#intervention_column_id").append('<option value="' + data[i]["id"] + '">' + data[i]["id"] + '</option>');
+                                    }
+                                }
+                            })
+                        });
+    
+                        //////////// ELEVATOR ////////////
+                        $('#intervention_column_id').on('change', function() {
+                            $('#intervention_elevator_id').show()
+                            $("#intervention_elevator_id").empty();
+                            //let building_id = $("#building_id option:selected").val();
+                            column_id = $(this).val();
+                            console.log(column_id)
+                            $.ajax({
+                                cache: false,
+                                url: 'https://rocketapis.azurewebsites.net/api/elevators/',
+                                type: 'GET',
+                                dataType: 'json',
+                                data: {
+                                    id: column_id
+                                },
+                                success: function (data) {
+                                    console.log(data)
+                                    console.log('TEST/////////////')
+                                    var data = data["elevators"]
+                                    console.log(data)
+    
+                                    $("#intervention_elevator_id").empty();
+                                    $("#intervention_elevator_id").append('<option>Select Elevator</option>');
+                                    for (var i = 0; i < data.length; i++) {
+                                        $("#intervention_elevator_id").append('<option value="' + data[i]["id"] + '">' + data[i]["id"] + '</option>');
+                                    }
+                                }
+                            })
+                        });
+                    </script>
+}
+
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" crossorigin="anonymous"></script>
