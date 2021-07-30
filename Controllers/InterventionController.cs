@@ -17,6 +17,11 @@ namespace RocketElevatorsCustomerPortal.Controllers
     [Authorize]
     public class InterventionController : Controller
     {
+        // [HttpPost]
+        // public ActionResult AddIntervention(IEnumerable<Intervention> interfaces)
+        // {
+        //     return View();
+        // }
         public async Task<IActionResult> IndexAsync()
         {
             dynamic mymodel = new ExpandoObject();

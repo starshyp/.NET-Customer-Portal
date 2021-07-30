@@ -8,6 +8,7 @@ namespace RocketElevatorsCustomerPortal.Models
     public class Customer
     {
         public long id { get; set; }
+        public int user_id { get; set; }
         public string CompanyName { get; set; }
         public string NameOfContact { get; set; }
         public string CompanyContactPhone { get; set; }
@@ -18,7 +19,6 @@ namespace RocketElevatorsCustomerPortal.Models
         public string TechManagerServiceEmail { get; set; }
         public DateTime created_at { get; set; }
         public DateTime updated_at { get; set; }
-        public long user_id { get; set; }
         public long address_id { get; set; }
     }
 }

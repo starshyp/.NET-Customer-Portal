@@ -1,19 +1,20 @@
-﻿@*@using MultipleModelInOneView;*@
-@model dynamic
+﻿@model dynamic
 @{
-    ViewData["Title"] = "Intervention";
+    ViewData["Title"] = "Intervention Form";
 }
-@*@model IEnumerable<Building>
-    @model IEnumerable<Battery>*@
-
 @using Microsoft.AspNetCore.Identity
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
+@* <link href="dashboard.css" rel="stylesheet"> *@
+<link rel="stylesheet" href="~/css/intervention.css" />
 
-
-<link href="dashboard.css" rel="stylesheet">
-
-<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+@if (SignInManager.IsSignedIn(User))
+{
+    var user = await UserManager.GetUserAsync(User);
+<div>
+    <h1 hidden id="userEmailReal">@user.Email</h1>
+</div>
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2">Intervention Form</h1>
     </div>
@@ -21,36 +22,21 @@
     <form method="post" name="" id="">
         <div class="row">
             <div class="col-md-3">
-                <select class="custom-select">
-                    <option selected>Select Building</option>
-                    @foreach (Building b in Model.Buildings)
-                    {
-                        <option value="@b.id">@b.id</option>
-                    }
+                <div >
+                    <h4>Your ID:</h4> <h4 id="intervention_building_id_div"></h4>
+                </div>
+                <select cols="40" onchange="getBattery()" class="form-control" id="intervention_building_id">
+                <option>Select Building</option>                        
                 </select>
-
-                <select class="custom-select">
-                    <option selected>Select Battery</option>
-                    @foreach (Battery batt in Model.Batteries)
-                    {
-                        <option value="@batt.id">@batt.id</option>
-                    }
+                <select cols="40" onchange="getColumn()" class="form-control" id="intervention_battery_id">
+                <option>Select Battery</option>                        
                 </select>
-                <select class="custom-select">
-                    <option selected>Select Column</option>
-                    @foreach (Column col in Model.Columns)
-                    {
-                        <option value="@col.id">@col.id</option>
-                    }
+                <select cols="40" onchange="getElevator()" class="form-control" id="intervention_column_id">
+                <option>Select Column</option>                       
                 </select>
-                <select class="custom-select">
-                    <option selected>Select Elevator</option>
-                    @foreach (Elevator elev in Model.Elevators)
-                    {
-                        <option value="@elev.id">@elev.id</option>
-                    }
+                <select cols="40" class="form-control" id="intervention_elevator_id">
+                <option>Select Elevator</option>               
                 </select>
-
                 <div class="row">
                     <div class="col-md-12">
                         <label for="textarea">Report</label><br />
@@ -70,143 +56,133 @@
 
 </main>
 
-@section Scripts
+
+}
+
+@if (SignInManager.IsSignedIn(User) == false)
 {
-                    <script>
-                        $(document).ready(function(){
-                            $("#intervention_building_id").hide();
-                            $("#intervention_battery_id").hide();
-                            $("#intervention_column_id").hide();
-                            $("#intervention_elevator_id").hide();
-                            // $("#description").hide();
-                        });
-    
-                        // $("#building_id").prop("disabled", true);
-                        $('#intervention_customer_id').on('change', function() {
-                            $('#intervention_building_id').show()
-                            $("#intervention_building_id").empty();
-                            $("#intervention_battery_id").empty();
-                            $("#intervention_column_id").empty();
-                            $("#intervention_elevator_id").empty();
-                            // let customer_id = $("#intervention_customer_id option:selected").val();
-                            customer_id = $(this).val();
-                            console.log(customer_id)
-                            $.ajax({
-                                cache: false,
-                                url: 'https://rocketapis.azurewebsites.net/api/building/',
-                                type: 'GET',
-                                dataType: 'json',
-                                data: {
-                                    id: customer_id
-                                },
-                                success: function (data) {
-                                    console.log(data)
-                                    console.log('TEST/////////////')
-                                    var data = data["buildings"]
-                                    console.log(data)
-                                    $("#intervention_building_id").empty();
-                                    $("#intervention_building_id").append('<option>Select Building</option>');
-                                    // $("#building_id").append(new Option('Select Building'));
-                                    for (var i = 0; i < data.length; i++) {
-                                        $("#intervention_building_id").append('<option value="' + data[i]["id"] + '">' + data[i]["id"] + '</option>');
-                                    }
-                                }
-                            })
-                        });
-    
-                        //////////// BATTERY ////////////
-                        $('#intervention_building_id').on('change', function() {
-                            $('#intervention_battery_id').show()
-                            $("#intervention_battery_id").empty();
-                            $("#intervention_column_id").empty();
-                            $("#intervention_elevator_id").empty();
-                            //let building_id = $("#building_id option:selected").val();
-                            building_id = $(this).val();
-                            console.log(building_id)
-                            $.ajax({
-                                cache: false,
-                                url: 'https://rocketapis.azurewebsites.net/api/batteries/',
-                                type: 'GET',
-                                dataType: 'json',
-                                data: {
-                                    id: building_id
-                                },
-                                success: function (data) {
-                                    console.log(data)
-                                    console.log('TEST/////////////')
-                                    var data = data["batteries"]
-                                    console.log(data)
-    
-                                    $("#intervention_battery_id").empty();
-                                    $("#intervention_battery_id").append('<option>Select Battery</option>');
-                                    for (var i = 0; i < data.length; i++) {
-                                        $("#intervention_battery_id").append('<option value="' + data[i]["id"] + '">' + data[i]["id"] + '</option>');
-                                    }
-                                }
-                            })
-                        });
-    
-                        //////////// COLUMN ////////////
-                        $('#intervention_battery_id').on('change', function() {
-                            $('#intervention_column_id').show()
-                            $("#intervention_column_id").empty();
-                            $("#intervention_elevator_id").empty();
-                            //let building_id = $("#building_id option:selected").val();
-                            battery_id = $(this).val();
-                            console.log(battery_id)
-                            $.ajax({
-                                cache: false,
-                                url: 'https://rocketapis.azurewebsites.net/api/columns/',
-                                type: 'GET',
-                                dataType: 'json',
-                                data: {
-                                    id: battery_id
-                                },
-                                success: function (data) {
-                                    console.log(data)
-                                    console.log('TEST/////////////')
-                                    var data = data["columns"]
-                                    console.log(data)
-    
-                                    $("#intervention_column_id").empty();
-                                    $("#intervention_column_id").append('<option>Select Column</option>');
-                                    for (var i = 0; i < data.length; i++) {
-                                        $("#intervention_column_id").append('<option value="' + data[i]["id"] + '">' + data[i]["id"] + '</option>');
-                                    }
-                                }
-                            })
-                        });
-    
-                        //////////// ELEVATOR ////////////
-                        $('#intervention_column_id').on('change', function() {
-                            $('#intervention_elevator_id').show()
-                            $("#intervention_elevator_id").empty();
-                            //let building_id = $("#building_id option:selected").val();
-                            column_id = $(this).val();
-                            console.log(column_id)
-                            $.ajax({
-                                cache: false,
-                                url: 'https://rocketapis.azurewebsites.net/api/elevators/',
-                                type: 'GET',
-                                dataType: 'json',
-                                data: {
-                                    id: column_id
-                                },
-                                success: function (data) {
-                                    console.log(data)
-                                    console.log('TEST/////////////')
-                                    var data = data["elevators"]
-                                    console.log(data)
-    
-                                    $("#intervention_elevator_id").empty();
-                                    $("#intervention_elevator_id").append('<option>Select Elevator</option>');
-                                    for (var i = 0; i < data.length; i++) {
-                                        $("#intervention_elevator_id").append('<option value="' + data[i]["id"] + '">' + data[i]["id"] + '</option>');
-                                    }
-                                }
-                            })
-                        });
-                    </script>
+     <div class="text-center">
+        <h1 class="display-4">Please log in</h1>
+        <a asp-action="index" asp-controller="home">Home</a> <br>
+    </div>
+}
+ 
+@section Scripts {
+    <script type="text/javascript">
+   
+$( document ).ready(function() {
+         var userEmail = document.getElementById("userEmailReal").innerHTML;
+         console.log(userEmail);
+        // $.get("https://rocketapis.azurewebsites.net/api/customer/", function (data) {
+        //     console.log("TEST////////////////")
+        //     console.log(data)
+        //     });
+         $.ajax({
+                cache: false,
+                url: 'https://rocketapis.azurewebsites.net/api/customer/',
+                type: 'GET',
+                dataType: 'json',
+                success: function (obj) {
+                    console.log(obj);
+                    for (var i = 0; i < obj.length; i++){
+                        if (obj[i].EmailOfTheCompany == userEmail){                            
+                            var row = '<h4 id="customerID" value="' + obj[i].id + '">' + obj[i].id + '</h4>';
+                            $(row).appendTo("#intervention_building_id_div");
+                            setTimeout(getBuildings, 1);
+                        }
+                    }
+                },
+                error: function (obj) {
+                    console.log('test');
+                }
+            });
+    });
+   
+    function getElevator() {
+    var columnID = document.getElementById("columnID").value;
+    $.ajax({
+        cache: false,
+        url: 'https://rocketapis.azurewebsites.net/api/elevators/',
+        type: 'GET',
+        dataType: 'json',
+        success: function (obj) {
+            for (var i = 0; i < obj.length; i++){
+                if (obj[i].column_id == columnID){
+                    
+                    var row = '<option id="elevatorID" value="' + obj[i].id + '">' + obj[i].id + '</option>';
+                    $(row).appendTo("#intervention_elevator_id");
+                }
+            }
+        },
+        error: function (obj) {
+            console.log('test');
+        }
+    });
+    }
+    function getColumn() {
+    var batteryID = document.getElementById("batteryID").value;
+    $.ajax({
+        cache: false,
+        url: 'https://rocketapis.azurewebsites.net/api/columns/',
+        type: 'GET',
+        dataType: 'json',
+        success: function (obj) {
+            for (var i = 0; i < obj.length; i++){
+                if (obj[i].battery_id == batteryID){
+                    var row = '<option id="columnID" value="' + obj[i].id + '">' + obj[i].id + '</option>';
+                    $(row).appendTo("#intervention_column_id");
+                }
+            }
+        },
+        error: function (obj) {
+            console.log('test');
+        }
+    });
+    }
+    function getBattery() {
+        var buildingID = document.getElementById("buildingID").value;
+        $.ajax({
+            cache: false,
+            url: 'https://rocketapis.azurewebsites.net/api/batteries/',
+            type: 'GET',
+            dataType: 'json',
+            success: function (obj) {
+                for (var i = 0; i < obj.length; i++){
+                    if (obj[i].building_id == buildingID){
+                        var row = '<option id="batteryID" value="' + obj[i].id + '">' + obj[i].id + '</option>';
+                        $(row).appendTo("#intervention_battery_id");
+                        
+                    }
+                }
+            },
+            error: function (obj) {
+                console.log('test');
+            }
+        });
+    }
+    function getBuildings() {
+        var customerID = document.getElementById("customerID").innerHTML;
+        $.ajax({
+            cache: false,
+            url: 'https://rocketapis.azurewebsites.net/api/building/',
+            type: 'GET',
+            dataType: 'json',
+            success: function (obj) {
+                 console.log(obj)
+                for (var i = 0; i < obj.length; i++){
+                    if (obj[i].customer_id == customerID){
+                        var row = '<option id="buildingID" value="' + obj[i].id + '">' + obj[i].id + '</option>';
+                        $(row).appendTo("#intervention_building_id");
+                    }
+                }
+            },
+            error: function (obj) {
+                console.log('test');
+            }
+           
+        });
+    }
+</script>
 }
 
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
