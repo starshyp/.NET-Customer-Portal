@@ -8,11 +8,13 @@ using System.Net.Http;
 using Newtonsoft.Json;
 using RocketElevatorsCustomerPortal.Models;
 using System.Dynamic;
+using Microsoft.AspNetCore.Authorization;
 
 // reference https://www.yogihosting.com/aspnet-core-consume-api/
 
 namespace RocketElevatorsCustomerPortal.Controllers
 {
+    [Authorize]
     public class InterventionController : Controller
     {
         public async Task<IActionResult> IndexAsync()
@@ -22,25 +24,9 @@ namespace RocketElevatorsCustomerPortal.Controllers
             mymodel.Batteries = await GetBatteries();
             mymodel.Columns = await GetColumns();
             mymodel.Elevators = await GetElevators();
+            // mymodel.Customer = FetchCustomer(string email);
             return View(mymodel);
         }
-        //// GET: /<controller>/
-        //public async Task<IActionResult> Index()
-        //{
-        //    List<Reservation> reservationList = new List<Reservation>();
-        //    using (var httpClient = new HttpClient())
-        //    {
-        //        //HTTP GET request to the API
-        //        using (var response = await httpClient.GetAsync("https://localhost:44324/api/Reservation"))
-        //        {
-        //            //data returned by the API is fetched from the code
-        //            string apiResponse = await response.Content.ReadAsStringAsync();
-        //            //Deserialize the JSON to a List type object
-        //            reservationList = JsonConvert.DeserializeObject<List<Reservation>>(apiResponse);
-        //        }
-        //    }
-        //    return View(reservationList);
-        //}
 
         // CUSTOMERS
         //public async Task<IActionResult> Index()
@@ -128,22 +114,23 @@ namespace RocketElevatorsCustomerPortal.Controllers
             }
             return elevatorList;
         }
-        ////CUSTOMER LOGGED IN
-        //public async Task<IEnumerable<Customer>> FetchCustomer()
-        //{
-        //    using (var httpClient = new HttpClient())
-        //    {
-        //        //HTTP GET request to the API
-        //        using (var response = await httpClient.GetAsync("https://rocketapis.azurewebsites.net/api/customer"))
-        //        {
-        //            //data returned by the API is fetched from the code
-        //            string apiResponse = await response.Content.ReadAsStringAsync();
-        //            //Deserialize the JSON to a List type object
-        //            Customer customer = JsonConvert.DeserializeObject<Customer>(apiResponse);
+        
+        //CUSTOMER LOGGED IN
+        // public async Task<IEnumerable<Customer>> FetchCustomer(string email)
+        public Customer FetchCustomer([FromRoute] string email)
+        {
+            using (var httpClient = new HttpClient())
+            {
+                //HTTP GET request to the API
+                var result = httpClient.GetAsync("https://rocketapis.azurewebsites.net/api/customer/" + email)
+                    .Result;
+               //data returned by the API is fetched from the code
+                    string apiResult = result.Content.ReadAsStringAsync().Result;
+                    //Deserialize the JSON to a List type object
+                    Customer customer = JsonConvert.DeserializeObject<Customer>(apiResult);
+                    return customer;
+            }
+        }
 
-        //        }
-        //    }
-        //    return customer;
-        //}
     }
 }

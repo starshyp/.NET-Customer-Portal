@@ -188,3 +188,5 @@
 /Users/usr1080/Desktop/Codeboxx/Week 11 - .NET Core/RocketElevatorsCustomerPortal/bin/Debug/netcoreapp3.1/publish/appsettings.json
 /Users/usr1080/Desktop/Codeboxx/Week 11 - .NET Core/RocketElevatorsCustomerPortal/bin/Debug/netcoreapp3.1/publish/RocketElevatorsCustomerPortal.deps.json
 /Users/usr1080/Desktop/Codeboxx/Week 11 - .NET Core/RocketElevatorsCustomerPortal/bin/Debug/netcoreapp3.1/publish/RocketElevatorsCustomerPortal.runtimeconfig.json
+/Users/usr1080/Desktop/Codeboxx/Week 11 - .NET Core/RocketElevatorsCustomerPortal/obj/Debug/netcoreapp3.1/Razor/Areas/Identity/Pages/Account/Register.cshtml.g.cs
+/Users/usr1080/Desktop/Codeboxx/Week 11 - .NET Core/RocketElevatorsCustomerPortal/obj/Debug/netcoreapp3.1/Razor/Views/Product/ModifyAddressInfo.cshtml.g.cs

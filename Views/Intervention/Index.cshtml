@@ -6,6 +6,10 @@
 @*@model IEnumerable<Building>
     @model IEnumerable<Battery>*@
 
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
 
 <link href="dashboard.css" rel="stylesheet">
 
