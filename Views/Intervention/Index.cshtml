@@ -85,7 +85,8 @@ $( document ).ready(function() {
                 success: function (obj) {
                     console.log(obj);
                     for (var i = 0; i < obj.length; i++){
-                        if (obj[i].EmailOfTheCompany == userEmail){                            
+                        console.log(obj[i].EmailOfTheCompany);
+                        if (obj[i].emailOfTheCompany == userEmail){                            
                             var row = '<h4 id="customerID" value="' + obj[i].id + '">' + obj[i].id + '</h4>';
                             $(row).appendTo("#intervention_building_id_div");
                             setTimeout(getBuildings, 1);
