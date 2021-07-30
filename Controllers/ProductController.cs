@@ -11,6 +11,7 @@ using System.Dynamic;
 using System.Net.Http.Headers;
 using System.Text;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace RocketElevatorsCustomerPortal.Controllers
 {
@@ -153,45 +154,46 @@ namespace RocketElevatorsCustomerPortal.Controllers
             return View(customer);
         }
         
-        [HttpPost]
+        // [HttpPost]
         // public async Task<Customer> ModifyContactInfo(Customer customer)
-        public async Task<IActionResult> ModifyContactInfo(Customer customer)
-        {
-            Customer modifyCustomer = new Customer();
-            using (var httpClient = new HttpClient())
-            {
-                var content = new MultipartFormDataContent();
-                content.Add(new StringContent(customer.id.ToString()), "id");
-                content.Add(new StringContent(customer.CompanyName), "CompanyName");
-                content.Add(new StringContent(customer.NameOfContact), "NameOfContact");
-                content.Add(new StringContent(customer.CompanyContactPhone), "CompanyContactPhone");
-                content.Add(new StringContent(customer.EmailOfTheCompany), "EmailOfTheCompany");
-                content.Add(new StringContent(customer.CompanyDescription), "CompanyDescription");
-                content.Add(new StringContent(customer.NameOfServiceTechAuthority), "NameOfServiceTechAuthority");
-                content.Add(new StringContent(customer.TechAuhtorityPhone), "TechAuhtorityPhone");
-                content.Add(new StringContent(customer.TechManagerServiceEmail), "TechManagerServiceEmail");
-        
-                using (var response = await httpClient.PutAsync("https://rocketapis.azurewebsites.net/api/customer", content))
-                {
-                    string apiResponse = await response.Content.ReadAsStringAsync();
-                    ViewBag.Result = "Success";
-                    modifyCustomer = JsonConvert.DeserializeObject<Customer>(apiResponse);
-                }
-            }
-            return View(modifyCustomer);
-        }
+        // public async Task<IActionResult> ModifyContactInfo(Customer customer)
+        // {
+        //     Customer modifyCustomer = new Customer();
+        //     using (var httpClient = new HttpClient())
+        //     {
+        //         var content = new MultipartFormDataContent();
+        //         content.Add(new StringContent(customer.id.ToString()), "id");
+        //         content.Add(new StringContent(customer.CompanyName), "CompanyName");
+        //         content.Add(new StringContent(customer.NameOfContact), "NameOfContact");
+        //         content.Add(new StringContent(customer.CompanyContactPhone), "CompanyContactPhone");
+        //         content.Add(new StringContent(customer.EmailOfTheCompany), "EmailOfTheCompany");
+        //         content.Add(new StringContent(customer.CompanyDescription), "CompanyDescription");
+        //         content.Add(new StringContent(customer.NameOfServiceTechAuthority), "NameOfServiceTechAuthority");
+        //         content.Add(new StringContent(customer.TechAuhtorityPhone), "TechAuhtorityPhone");
+        //         content.Add(new StringContent(customer.TechManagerServiceEmail), "TechManagerServiceEmail");
+        //
+        //         using (var response = await httpClient.PutAsync("https://rocketapis.azurewebsites.net/api/customer", content))
+        //         {
+        //             string apiResponse = await response.Content.ReadAsStringAsync();
+        //             ViewBag.Result = "Success";
+        //             modifyCustomer = JsonConvert.DeserializeObject<Customer>(apiResponse);
+        //         }
+        //     }
+        //     return View(modifyCustomer);
+        // }
 
-        // // TESTING V2
+        // TESTING V2
         // public async Task<IActionResult> ModifyContactInfo(Customer customer)
         // {
         //     Customer modifyCustomer = new Customer();
         //     HttpClient client = new HttpClient();
-        //     client.BaseAddress = new Uri("https://rocketapis.azurewebsites.net/api");
+        //     client.BaseAddress = new Uri("https://rocketapis.azurewebsites.net");
         //     client.DefaultRequestHeaders
         //         .Accept
         //         .Add(new MediaTypeWithQualityHeaderValue("application/json")); //ACCEPT header
         //
-        //     HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "customer");
+        //     HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "api/customer");
+        //     Console.WriteLine(request);
         //     request.Content = new StringContent("{\"companyName\",\"nameOfContact\"}",
         //         Encoding.UTF8,
         //         "application/json"); //CONTENT-TYPE header
@@ -201,7 +203,7 @@ namespace RocketElevatorsCustomerPortal.Controllers
         //     
         //     return View(modifyCustomer);
         // }
-        
+
         //Update Address Info
           public async Task<IActionResult> ModifyAddressInfo(int id)
         {
@@ -216,34 +218,35 @@ namespace RocketElevatorsCustomerPortal.Controllers
             }
             return View(address);
         }
-        
-        [HttpPost]
-        public async Task<IActionResult> ModifyAddressInfo(Address address)
-        {
-            Address modifyAddress = new Address();
-            using (var httpClient = new HttpClient())
-            {
-                var content = new MultipartFormDataContent();
-                content.Add(new StringContent(address.id.ToString()), "id");
-                content.Add(new StringContent(address.TypeOfAddress), "TypeOfAddress");
-                content.Add(new StringContent(address.Status), "Status");
-                content.Add(new StringContent(address.Entity), "Entity");
-                content.Add(new StringContent(address.NumberAndStreet), "NumberAndStreet");
-                content.Add(new StringContent(address.Apt), "Apt");
-                content.Add(new StringContent(address.City), "City");
-                content.Add(new StringContent(address.PostalCode), "PostalCode");
-                content.Add(new StringContent(address.Country), "Country");
-                content.Add(new StringContent(address.Notes), "Notes");
-        
-                using (var response = await httpClient.PutAsync("https://rocketapis.azurewebsites.net/api/address", content))
-                {
-                    string apiResponse = await response.Content.ReadAsStringAsync();
-                    ViewBag.Result = "Success";
-                    modifyAddress = JsonConvert.DeserializeObject<Address>(apiResponse);
-                }
-            }
-            return View(modifyAddress);
-        }
+          
+        //
+        // [HttpPost]
+        // public async Task<IActionResult> ModifyAddressInfo(Address address)
+        // {
+        //     Address modifyAddress = new Address();
+        //     using (var httpClient = new HttpClient())
+        //     {
+        //         var content = new MultipartFormDataContent();
+        //         content.Add(new StringContent(address.id.ToString()), "id");
+        //         content.Add(new StringContent(address.TypeOfAddress), "TypeOfAddress");
+        //         content.Add(new StringContent(address.Status), "Status");
+        //         content.Add(new StringContent(address.Entity), "Entity");
+        //         content.Add(new StringContent(address.NumberAndStreet), "NumberAndStreet");
+        //         content.Add(new StringContent(address.Apt), "Apt");
+        //         content.Add(new StringContent(address.City), "City");
+        //         content.Add(new StringContent(address.PostalCode), "PostalCode");
+        //         content.Add(new StringContent(address.Country), "Country");
+        //         content.Add(new StringContent(address.Notes), "Notes");
+        //
+        //         using (var response = await httpClient.PutAsync("https://rocketapis.azurewebsites.net/api/address", content))
+        //         {
+        //             string apiResponse = await response.Content.ReadAsStringAsync();
+        //             ViewBag.Result = "Success";
+        //             modifyAddress = JsonConvert.DeserializeObject<Address>(apiResponse);
+        //         }
+        //     }
+        //     return View(modifyAddress);
+        // }
         
     }
 }

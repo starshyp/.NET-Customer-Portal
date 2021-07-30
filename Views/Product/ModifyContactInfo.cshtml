@@ -15,49 +15,50 @@
     @* </div> *@
 
     <h2>Modify Contact Info <a asp-action="Index" class="btn btn-sm btn-secondary">Back</a></h2>
-    <form method="post">
+    @* method="post" *@
+    <form onsubmit="return ModifyContactInfo()">
         <div class="form-group">
             <label asp-for="id"></label>
-            <input class="form-control" asp-for="id" readonly />
+            <input class="form-control" value="@Model.id" asp-for="id" readonly />
         </div>
         <div class="form-group">
             <label asp-for="CompanyName"></label>
-            <input class="form-control" asp-for="CompanyName" />
+            <input class="form-control" id="CompanyName" value="@Model.CompanyName" asp-for="CompanyName" />
         </div>
         <div class="form-group">
             <label asp-for="NameOfContact"></label>
-            <input class="form-control" asp-for="NameOfContact" />
+            <input class="form-control" id="NameOfContact" value="@Model.NameOfContact" asp-for="NameOfContact" />
         </div>
         <div class="form-group">
             <label asp-for="CompanyContactPhone"></label>
-            <input class="form-control" asp-for="CompanyContactPhone" />
+            <input class="form-control" id="CompanyContactPhone" value="@Model.CompanyContactPhone" asp-for="CompanyContactPhone" />
         </div>
         <div class="form-group">
             <label asp-for="EmailOfTheCompany"></label>
-            <input class="form-control" asp-for="EmailOfTheCompany" />
+            <input class="form-control" id="EmailOfTheCompany" value="@Model.EmailOfTheCompany" asp-for="EmailOfTheCompany" readonly />
         </div>
         <div class="form-group">
             <label asp-for="CompanyDescription"></label>
-            <input class="form-control" asp-for="CompanyDescription" />
+            <input class="form-control" id="CompanyDescription" value="@Model.CompanyDescription" asp-for="CompanyDescription" />
         </div>
         <div class="form-group">
             <label asp-for="NameOfServiceTechAuthority"></label>
-            <input class="form-control" asp-for="NameOfServiceTechAuthority" />
+            <input class="form-control" id="NameOfServiceTechAuthority" value="@Model.NameOfServiceTechAuthority" asp-for="NameOfServiceTechAuthority" />
         </div>
         <div class="form-group">
             <label asp-for="TechAuhtorityPhone"></label>
-            <input class="form-control" asp-for="TechAuhtorityPhone" />
+            <input class="form-control" id="TechAuhtorityPhone" value="@Model.TechAuhtorityPhone" asp-for="TechAuhtorityPhone" />
         </div>
         <div class="form-group">
             <label asp-for="TechManagerServiceEmail"></label>
-            <input class="form-control" asp-for="TechManagerServiceEmail" />
+            <input class="form-control" id="TechManagerServiceEmail" value="@Model.TechManagerServiceEmail" asp-for="TechManagerServiceEmail" />
         </div>
         <div class="text-center panel-body">
-            <button type="submit" class="btn btn-sm btn-primary">Update</button>
+            <button type="submit" id="update" class="btn btn-sm btn-primary">Update</button>
         </div>
     </form>
 
-    @if (ViewBag.Result == "Success")
+    @if (ViewBag.Result == "Info updated")
     {
         <h2>Account</h2>
         <table class="table table-sm table-striped table-bordered m-2">
@@ -93,6 +94,54 @@
     }
 
 </main>
+
+<script>  
+function ModifyContactInfo() {
+    // $(document).ready(function ModifyContactInfo() {
+        var data = {
+            id: $('#id').val(),
+            CompanyName: $('#CompanyName').val(),
+            NameOfContact: $('#NameOfContact').val(),
+            CompanyContactPhone: $('#CompanyContactPhone').val(),
+            EmailOfTheCompany: $('#EmailOfTheCompany').val(),
+            CompanyDescription: $('#CompanyDescription').val(),
+            NameOfServiceTechAuthority: $('#NameOfServiceTechAuthority').val(),
+            TechAuhtorityPhone: $('#TechAuhtorityPhone').val(),
+            TechManagerServiceEmail: $('#TechManagerServiceEmail').val()
+        };
+        console.log(data)
+        // var customer = new Customer();  
+        // customer.CompanyName = "";  
+        // customer.NameOfContact = ""; 
+        //  $("#update").click(function () {
+            $.ajax({  
+                url: 'https://rocketapis.azurewebsites.net/api/customer',  
+                type: 'PUT',  
+                // dataType: 'json',  
+                data: JSON.stringify(data),
+                headers: {
+                    "Access-Control-Allow-Origin": "*",
+                    "Access-Control-Allow-Methods": "HEAD, GET, POST, PUT, PATCH, DELETE",
+                    "Access-Control-Allow-Headers": "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With",
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                success: function (data, textStatus, xhr) {  
+                    console.log(data);
+                    alert('Info updated');
+                },  
+                error: function (xhr, textStatus, errorThrown) {  
+                    console.log('Error in Operation');
+                    console.log(data);
+                    alert('Failed to update');
+                }  
+            });  
+        return false;
+    }
+</script>  
+
+@* reference: https://www.c-sharpcorner.com/UploadFile/dacca2/web-api-with-ajax-make-put-request-in-restful-web-api-servi/ *@
+
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" crossorigin="anonymous"></script>

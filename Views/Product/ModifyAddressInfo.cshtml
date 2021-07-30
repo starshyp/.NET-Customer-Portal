@@ -15,47 +15,47 @@
     @* </div> *@
 
     <h2>Modify Address Info <a asp-action="Index" class="btn btn-sm btn-secondary">Back</a></h2>
-    <form method="post">
+    <form onsubmit="return ModifyAddressInfo()">
         <div class="form-group">
             <label asp-for="id"></label>
-            <input class="form-control" asp-for="id" readonly />
+            <input class="form-control" value="@Model.id" asp-for="id" asp-for="id" readonly />
         </div>
         <div class="form-group">
             <label asp-for="TypeOfAddress"></label>
-            <input class="form-control" asp-for="TypeOfAddress" />
+            <input class="form-control" id="TypeOfAddress" value="@Model.TypeOfAddress" asp-for="TypeOfAddress" />
         </div>
         <div class="form-group">
             <label asp-for="Status"></label>
-            <input class="form-control" asp-for="Status" />
+            <input class="form-control" id="Status" value="@Model.Status" asp-for="Status" />
         </div>
         <div class="form-group">
             <label asp-for="Entity"></label>
-            <input class="form-control" asp-for="Entity" />
+            <input class="form-control" id="Entity" value="@Model.Entity" asp-for="Entity" />
         </div>
         <div class="form-group">
             <label asp-for="NumberAndStreet"></label>
-            <input class="form-control" asp-for="NumberAndStreet" />
+            <input class="form-control" id="NumberAndStreet" value="@Model.NumberAndStreet" asp-for="NumberAndStreet" />
         </div>
         <div class="form-group">
             <label asp-for="Apt"></label>
-            <input class="form-control" asp-for="Apt" />
+            <input class="form-control" id="Apt" value="@Model.Apt" asp-for="Apt" />
         </div>
         <div class="form-group">
             <label asp-for="City"></label>
-            <input class="form-control" asp-for="City" />
+            <input class="form-control" id="City" value="@Model.City" asp-for="City" />
         </div>
         <div class="form-group">
             <label asp-for="PostalCode"></label>
-            <input class="form-control" asp-for="PostalCode" />
+            <input class="form-control" id="PostalCode" value="@Model.PostalCode" asp-for="PostalCode" />
         </div>
         <div class="form-group">
             <label asp-for="Country"></label>
-            <input class="form-control" asp-for="Country" />
+            <input class="form-control" id="Country" value="@Model.Country" asp-for="Country" />
         </div>
-                <div class="form-group">
-                    <label asp-for="Notes"></label>
-                    <input class="form-control" asp-for="Notes" />
-                </div>
+        <div class="form-group">
+            <label asp-for="Notes"></label>
+            <input class="form-control" id="Notes" value="@Model.Notes" asp-for="Notes" />
+        </div>
         <div class="text-center panel-body">
             <button type="submit" class="btn btn-sm btn-primary">Update</button>
         </div>
@@ -66,39 +66,86 @@
         <h2>Account</h2>
         <table class="table table-sm table-striped table-bordered m-2">
             <thead>
-                <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Type</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">Entity</th>
-                    <th scope="col">Street</th>
-                    <th scope="col">Suite</th>
-                    <th scope="col">City</th>
-                    <th scope="col">Zip</th>
-                    <th scope="col">Country</th>
-                    <th scope="col">Notes</th>
-                </tr>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Type</th>
+                <th scope="col">Status</th>
+                <th scope="col">Entity</th>
+                <th scope="col">Street</th>
+                <th scope="col">Suite</th>
+                <th scope="col">City</th>
+                <th scope="col">Zip</th>
+                <th scope="col">Country</th>
+                <th scope="col">Notes</th>
+            </tr>
             </thead>
             <tbody>
 
-                <tr>
-                    <td>@Model.id</td>
-                    <td>@Model.TypeOfAddress</td>
-                    <td>@Model.Status</td>
-                    <td>@Model.Entity</td>
-                    <td>@Model.NumberAndStreet</td>
-                    <td>@Model.Apt</td>
-                    <td>@Model.City</td>
-                    <td>@Model.PostalCode</td>
-                    <td>@Model.Country</td>
-                    <td>@Model.Notes</td>
-                </tr>
+            <tr>
+                <td>@Model.id</td>
+                <td>@Model.TypeOfAddress</td>
+                <td>@Model.Status</td>
+                <td>@Model.Entity</td>
+                <td>@Model.NumberAndStreet</td>
+                <td>@Model.Apt</td>
+                <td>@Model.City</td>
+                <td>@Model.PostalCode</td>
+                <td>@Model.Country</td>
+                <td>@Model.Notes</td>
+            </tr>
 
             </tbody>
         </table>
     }
-
+    
 </main>
+
+    <script>  
+    function ModifyAddressInfo() {
+        // $(document).ready(function ModifyContactInfo() {
+            var data = {
+                id: $('#id').val(),
+                TypeOfAddress: $('#TypeOfAddress').val(),
+                Status: $('#Status').val(),
+                Entity: $('#Entity').val(),
+                NumberAndStreet: $('#NumberAndStreet').val(),
+                Apt: $('#Apt').val(),
+                City: $('#City').val(),
+                PostalCode: $('#PostalCode').val(),
+                Country: $('#Country').val(),
+                Notes: $('#Notes').val()
+            };
+            console.log(data)
+            // var customer = new Customer();  
+            // customer.CompanyName = "";  
+            // customer.NameOfContact = ""; 
+            //  $("#update").click(function () {
+                $.ajax({  
+                    url: 'https://rocketapis.azurewebsites.net/api/address',  
+                    type: 'PUT',  
+                    // dataType: 'json',  
+                    data: JSON.stringify(data),
+                    headers: {
+                        "Access-Control-Allow-Origin": "*",
+                        "Access-Control-Allow-Methods": "HEAD, GET, POST, PUT, PATCH, DELETE",
+                        "Access-Control-Allow-Headers": "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With",
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    success: function (data, textStatus, xhr) {  
+                        console.log(data);
+                        alert('Info updated');
+                    },  
+                    error: function (xhr, textStatus, errorThrown) {  
+                        console.log('Error in Operation');
+                        console.log(data);
+                        alert('Failed to update');
+                    }  
+                });  
+            return false;
+        }
+    </script>  
+
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" crossorigin="anonymous"></script>
