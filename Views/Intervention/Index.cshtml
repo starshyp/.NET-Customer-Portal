@@ -19,7 +19,8 @@
         <h1 class="h2">Intervention Form</h1>
     </div>
 
-    <form method="post" name="" id="">
+    @* <form method="post" name="" id=""> *@
+    <form onsubmit="return PostIntervention()">
         <div class="row">
             <div class="col-md-3">
                 <div >
@@ -56,8 +57,50 @@
 
 </main>
 
-
 }
+
+    <script>  
+    function PostIntervention() {
+        // $(document).ready(function ModifyContactInfo() {
+            var data = {
+                customer_id: 5,
+                author_id: 5,
+                building_id: $('#intervention_building_id').val(),
+                battery_id: $('#intervention_battery_id').val(),
+                column_id: $('#intervention_column_id').val(),
+                elevator_id: $('#intervention_elevator_id').val(),
+                report: $('#textarea').val(),
+            };
+            console.log(data)
+            // var customer = new Customer();  
+            // customer.CompanyName = "";  
+            // customer.NameOfContact = ""; 
+            //  $("#update").click(function () {
+                $.ajax({  
+                    url: 'https://rocketapis.azurewebsites.net/api/interventions',  
+                    type: 'POST',  
+                    // dataType: 'json',  
+                    data: JSON.stringify(data),
+                    headers: {
+                        "Access-Control-Allow-Origin": "*",
+                        "Access-Control-Allow-Methods": "HEAD, GET, POST, PUT, PATCH, DELETE",
+                        "Access-Control-Allow-Headers": "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With",
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    success: function (data, textStatus, xhr) {  
+                        console.log(data);
+                        alert('Intervention has been created');
+                    },  
+                    error: function (xhr, textStatus, errorThrown) {  
+                        console.log('Error in Operation');
+                        console.log(data);
+                        alert('Failed to create');
+                    }  
+                });  
+            return false;
+        }
+    </script>  
 
 @if (SignInManager.IsSignedIn(User) == false)
 {
