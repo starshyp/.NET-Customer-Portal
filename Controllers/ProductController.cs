@@ -248,5 +248,11 @@ namespace RocketElevatorsCustomerPortal.Controllers
         //     return View(modifyAddress);
         // }
         
+        public LocalRedirectResult LocalRedirect()  
+        {  
+            return LocalRedirect("/Intervention/Index");  
+        }  
+
+        
     }
 }

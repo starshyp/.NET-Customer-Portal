@@ -1,6 +1,7 @@
 ﻿@{
     ViewData["Title"] = "Products";
 }
+@using System.Security.Claims
 @model dynamic
 
 <link href="dashboard.css" rel="stylesheet">
@@ -36,6 +37,9 @@
         <tbody>
         @foreach (Customer cust in Model.Customer)
         {
+            // if (cust.id.Where(c => @cust.id.ToString() == User.FindFirst(ClaimTypes.NameIdentifier)?.Value))
+            // {
+            // }
             <tr>
                 <td>
                     <a  asp-action="ModifyContactInfo" asp-route-id="@cust.id">
@@ -106,20 +110,27 @@
 <div class="table-responsive">
                 <table class="table table-striped table-sm">
                     <thead>
-                        <tr>
-                            <th scope="col">ID</th>
-                            <th scope="col">Admin</th>
-                            <th scope="col">Email</th>
-                            <th scope="col">Phone #</th>
-                            <th scope="col">Tech Contact</th>
-                            <th scope="col">Tech Email</th>
-                            <th scope="col">Tech Phone</th>
-                        </tr>
+                    <tr>
+                        <th scope="col"></th>
+                        <th scope="col">ID</th>
+                        <th scope="col">Admin</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Phone #</th>
+                        <th scope="col">Tech Contact</th>
+                        <th scope="col">Tech Email</th>
+                        <th scope="col">Tech Phone</th>
+                    </tr>
                     </thead>
                     <tbody>
                         @foreach (Building bldg in Model.Building)
                         {
                         <tr>
+                            <td>
+                                <a href="@Url.Action("Index", "Intervention", new
+                                         { intervention_building_id = @bldg.id })">
+                                    intervention
+                                </a>
+                            </td>
                             <td>@bldg.id</td>
                             <td>@bldg.FullNameOfTheBuildingAdministrator</td>
                             <td>@bldg.EmailOfTheAdministratorOfTheBuilding</td>
@@ -138,21 +149,28 @@
         <div class="table-responsive">
             <table class="table table-striped table-sm">
                 <thead>
-                    <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">Type</th>
-                        <th scope="col">Status</th>
-                        <th scope="col">Commission</th>
-                        <th scope="col">Inspected</th>
-                        <th scope="col">Certified by</th>
-                        <th scope="col">Info</th>
-                        <th scope="col">Notes</th>
-                    </tr>
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col">ID</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Commission</th>
+                    <th scope="col">Inspected</th>
+                    <th scope="col">Certified by</th>
+                    <th scope="col">Info</th>
+                    <th scope="col">Notes</th>
+                </tr>
                 </thead>
                 <tbody>
                     @foreach (Battery batt in Model.Batteries)
                     {
                         <tr>
+                            <td>
+                                <a href="@Url.Action("Index", "Intervention", new
+                                         { intervention_battery_id = @batt.id })">
+                                    intervention
+                                </a>
+                            </td>
                             <td>@batt.id</td>
                             <td>@batt.BType</td>
                             <td>@batt.Status</td>
@@ -171,19 +189,26 @@
         <div class="table-responsive">
             <table class="table table-striped table-sm">
                 <thead>
-                    <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">Type</th>
-                        <th scope="col">Floors</th>
-                        <th scope="col">Status</th>
-                        <th scope="col">Info</th>
-                        <th scope="col">Notes</th>
-                    </tr>
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col">ID</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Floors</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Info</th>
+                    <th scope="col">Notes</th>
+                </tr>
                 </thead>
                 <tbody>
                     @foreach (Column col in Model.Columns)
                     {
                         <tr>
+                            <td>
+                                <a href="@Url.Action("Index", "Intervention", new
+                                         { intervention_column_id = @col.id })">
+                                    intervention
+                                </a>
+                            </td>
                             <td>@col.id</td>
                             <td>@col.ColumnType</td>
                             <td>@col.NbOfFloorsServed</td>
@@ -200,23 +225,30 @@
         <div class="table-responsive">
             <table class="table table-striped table-sm">
                 <thead>
-                    <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">Serial #</th>
-                        <th scope="col">Model</th>
-                        <th scope="col">Type</th>
-                        <th scope="col">Status</th>
-                        <th scope="col">Commission</th>
-                        <th scope="col">Inspected</th>
-                        <th scope="col">Certified by</th>
-                        <th scope="col">Info</th>
-                        <th scope="col">Notes</th>
-                    </tr>
+                <tr>
+                     <th scope="col"></th>
+                    <th scope="col">ID</th>
+                    <th scope="col">Serial #</th>
+                    <th scope="col">Model</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Commission</th>
+                    <th scope="col">Inspected</th>
+                    <th scope="col">Certified by</th>
+                    <th scope="col">Info</th>
+                    <th scope="col">Notes</th>
+                </tr>
                 </thead>
                 <tbody>
                     @foreach (Elevator elev in Model.Elevators)
                     {
                         <tr>
+                            <td>
+                                <a href="@Url.Action("Index", "Intervention", new
+                                         { intervention_elevator_id = @elev.id })">
+                                    intervention
+                                </a>
+                            </td>
                             <td>@elev.id</td>
                             <td>@elev.SerialNumber</td>
                             <td>@elev.Model</td>
