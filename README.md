@@ -20,7 +20,7 @@ Password: Same for all ('Codeboxx1!')
 - Login capability with user and password validation on user registration
 
 ### Notes
-No notes.
+Link to API endpoints: [Rocket Elevators Foundation - REST API](https://github.com/starshyp/Rocket-Elevators-Foundation-REST-API)
 
 ### preview:
 #### login page
