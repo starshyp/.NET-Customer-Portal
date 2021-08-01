@@ -3,11 +3,26 @@
 }
 @using System.Security.Claims
 @model dynamic
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
 
-<link href="dashboard.css" rel="stylesheet">
+@if (SignInManager.IsSignedIn(User))
+{
+    var user = await UserManager.GetUserAsync(User);
+
+    <div>
+        <h1 hidden id="userEmailReal">@user.Email</h1>
+        <h1 hidden id="userCustomerID"></h1>
+        <h1 hidden id ="userBuildingID" class="userBuildingID"></h1>
+        <h1 hidden id="userBatteryID"></h1>
+        <h1 hidden id="userColumnID"></h1>
+    </div>
+
+    <link href="dashboard.css" rel="stylesheet">
 @*<link rel="stylesheet" href="~/css/dashboard.css" />*@
 
-<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2">Products</h1>
     </div>
@@ -19,49 +34,51 @@
 
     <h3>Account Info</h3>
     <div class="table-responsive">
-    <table class="table table-striped table-sm">
-        <thead>
-        <tr>
-            <th scope="col"></th>
-            <th scope="col">ID</th>
-            <th scope="col">Company</th>
-            <th scope="col">Contact</th>
-            <th scope="col">Phone</th>
-            <th scope="col">Email</th>
-            <th scope="col">About</th>
-            <th scope="col">Tech Contact</th>
-            <th scope="col">Tech Phone</th>
-            <th scope="col">Tech Email</th>
-        </tr>
-        </thead>
-        <tbody>
-        @foreach (Customer cust in Model.Customer)
-        {
-            // if (cust.id.Where(c => @cust.id.ToString() == User.FindFirst(ClaimTypes.NameIdentifier)?.Value))
-            // {
-            // }
+        <table class="table table-striped table-sm">
+            <thead>
             <tr>
-                <td>
-                    <a  asp-action="ModifyContactInfo" asp-route-id="@cust.id">
-                        modify
-                    </a>
-                    @* <a asp-page="/ModifyContactInfo" asp-route-id="@cust.id">Test</a> *@
-                </td>
-                <td>@cust.id</td>
-                <td>@cust.CompanyName</td>
-                <td>@cust.NameOfContact</td>
-                <td>@cust.CompanyContactPhone</td>
-                <td>@cust.EmailOfTheCompany</td>
-                <td>@cust.CompanyDescription</td>
-                <td>@cust.NameOfServiceTechAuthority</td>
-                <td>@cust.TechAuhtorityPhone</td>
-                <td>@cust.TechManagerServiceEmail</td>
+                <th scope="col"></th>
+                <th scope="col">ID</th>
+                <th scope="col">Company</th>
+                <th scope="col">Contact</th>
+                <th scope="col">Phone</th>
+                <th scope="col">Email</th>
+                <th scope="col">About</th>
+                <th scope="col">Tech Contact</th>
+                <th scope="col">Tech Phone</th>
+                <th scope="col">Tech Email</th>
             </tr>
-        }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+            <tr id="customerInfo">
+                @* @foreach (Customer cust in Model.Customer) *@
+                @* { *@
+                @*     // if (cust.id.Where(c => @cust.id.ToString() == User.FindFirst(ClaimTypes.NameIdentifier)?.Value)) *@
+                @*     // { *@
+                @*     // } *@
+                @*     <tr> *@
+                @*         <td> *@
+                @*             <a asp-action="ModifyContactInfo" asp-route-id="@cust.id"> *@
+                @*                 modify *@
+                @*             </a> *@
+                @*             $1$ <a asp-page="/ModifyContactInfo" asp-route-id="@cust.id">Test</a> #1# *@
+                @*         </td> *@
+                @*         <td>@cust.id</td> *@
+                @*         <td>@cust.CompanyName</td> *@
+                @*         <td>@cust.NameOfContact</td> *@
+                @*         <td>@cust.CompanyContactPhone</td> *@
+                @*         <td>@cust.EmailOfTheCompany</td> *@
+                @*         <td>@cust.CompanyDescription</td> *@
+                @*         <td>@cust.NameOfServiceTechAuthority</td> *@
+                @*         <td>@cust.TechAuhtorityPhone</td> *@
+                @*         <td>@cust.TechManagerServiceEmail</td> *@
+            </tr>
+            @* } *@
+            </tbody>
+        </table>
     </div>
 
+    <h3>Address Info</h3>
     <div class="table-responsive">
         <table class="table table-striped table-sm">
             <thead>
@@ -80,193 +97,370 @@
             </tr>
             </thead>
             <tbody>
-            @foreach (Address add in Model.Address)
-            {
-                <tr>
-                    <td>
-                        <a  asp-action="ModifyAddressInfo" asp-route-id="@add.id">
-                            modify
-                        </a>
-                        @* <a asp-page="/ModifyContactInfo" asp-route-id="@cust.id">Test</a> *@
-                    </td>
-                    <td>@add.id</td>
-                    <td>@add.TypeOfAddress</td>
-                    <td>@add.Status</td>
-                    <td>@add.Entity</td>
-                    <td>@add.NumberAndStreet</td>
-                    <td>@add.Apt</td>
-                    <td>@add.City</td>
-                    <td>@add.PostalCode</td>
-                    <td>@add.Country</td>
-                    <td>@add.Notes</td>
-                </tr>
-            }
+            <tr id="addressInfo">
+                @* @foreach (Address add in Model.Address) *@
+                @* { *@
+                @*     <tr> *@
+                @*         <td> *@
+                @*             <a  asp-action="ModifyAddressInfo" asp-route-id="@add.id"> *@
+                @*                 modify *@
+                @*             </a> *@
+                @*             $1$ <a asp-page="/ModifyContactInfo" asp-route-id="@cust.id">Test</a> #1# *@
+                @*         </td> *@
+                @*         <td>@add.id</td> *@
+                @*         <td>@add.TypeOfAddress</td> *@
+                @*         <td>@add.Status</td> *@
+                @*         <td>@add.Entity</td> *@
+                @*         <td>@add.NumberAndStreet</td> *@
+                @*         <td>@add.Apt</td> *@
+                @*         <td>@add.City</td> *@
+                @*         <td>@add.PostalCode</td> *@
+                @*         <td>@add.Country</td> *@
+                @*         <td>@add.Notes</td> *@
+            </tr>
+            @* } *@
             </tbody>
         </table>
 
     </div>
-    
-<h3>Buildings</h3>
-<div class="table-responsive">
-                <table class="table table-striped table-sm">
-                    <thead>
-                    <tr>
-                        <th scope="col"></th>
-                        <th scope="col">ID</th>
-                        <th scope="col">Admin</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Phone #</th>
-                        <th scope="col">Tech Contact</th>
-                        <th scope="col">Tech Email</th>
-                        <th scope="col">Tech Phone</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (Building bldg in Model.Building)
-                        {
-                        <tr>
-                            <td>
-                                <a href="@Url.Action("Index", "Intervention", new
-                                         { intervention_building_id = @bldg.id })">
-                                    intervention
-                                </a>
-                            </td>
-                            <td>@bldg.id</td>
-                            <td>@bldg.FullNameOfTheBuildingAdministrator</td>
-                            <td>@bldg.EmailOfTheAdministratorOfTheBuilding</td>
-                            <td>@bldg.PhoneNumberOfTheBuildingAdministrator</td>
-                            <td>@bldg.FullNameOfTheTechContactForTheBuilding</td>
-                            <td>@bldg.TechContactEmail</td>
-                            <td>@bldg.TechContactPhone</td>
-                        </tr>
-                        }
-                    </tbody>
-                </table>
-    
-            </div>
+
+    <h3>Buildings</h3>
+    <div class="table-responsive">
+        <table class="table table-striped table-sm">
+            <thead>
+            <tr>
+                <th scope="col"></th>
+                <th scope="col">ID</th>
+                <th scope="col">Admin</th>
+                <th scope="col">Email</th>
+                <th scope="col">Phone #</th>
+                <th scope="col">Tech Contact</th>
+                <th scope="col">Tech Email</th>
+                <th scope="col">Tech Phone</th>
+            </tr>
+            </thead>
+            
+            <tbody id="buildingInfo">
+                @* @foreach (Building bldg in Model.Building) *@
+                @* { *@
+                @* <tr> *@
+                @*     <td> *@
+                @*         <a href="@Url.Action("Index", "Intervention", new *@
+                @*                  { intervention_building_id = @bldg.id })"> *@
+                @*             intervention *@
+                @*         </a> *@
+                @*     </td> *@
+                @*     <td>@bldg.id</td> *@
+                @*     <td>@bldg.FullNameOfTheBuildingAdministrator</td> *@
+                @*     <td>@bldg.EmailOfTheAdministratorOfTheBuilding</td> *@
+                @*     <td>@bldg.PhoneNumberOfTheBuildingAdministrator</td> *@
+                @*     <td>@bldg.FullNameOfTheTechContactForTheBuilding</td> *@
+                @*     <td>@bldg.TechContactEmail</td> *@
+                @*     <td>@bldg.TechContactPhone</td> *@
+           
+            @* } *@
+            </tbody>
+        </table>
+
+    </div>
 
     <h3>Batteries</h3>
-        <div class="table-responsive">
-            <table class="table table-striped table-sm">
-                <thead>
-                <tr>
-                    <th scope="col"></th>
-                    <th scope="col">ID</th>
-                    <th scope="col">Type</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">Commission</th>
-                    <th scope="col">Inspected</th>
-                    <th scope="col">Certified by</th>
-                    <th scope="col">Info</th>
-                    <th scope="col">Notes</th>
-                </tr>
-                </thead>
-                <tbody>
-                    @foreach (Battery batt in Model.Batteries)
-                    {
-                        <tr>
-                            <td>
-                                <a href="@Url.Action("Index", "Intervention", new
-                                         { intervention_battery_id = @batt.id })">
-                                    intervention
-                                </a>
-                            </td>
-                            <td>@batt.id</td>
-                            <td>@batt.BType</td>
-                            <td>@batt.Status</td>
-                            <td>@batt.DateOfCommissioning</td>
-                            <td>@batt.DateOfLastInspection</td>
-                            <td>@batt.CertificateOfOperations</td>
-                            <td>@batt.Info</td>
-                            <td>@batt.Notes</td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
+    <div class="table-responsive">
+        <table class="table table-striped table-sm">
+            <thead>
+            <tr>
+                <th scope="col"></th>
+                <th scope="col">ID</th>
+                <th scope="col">Type</th>
+                <th scope="col">Status</th>
+                <th scope="col">Commission</th>
+                <th scope="col">Inspected</th>
+                <th scope="col">Certified by</th>
+                <th scope="col">Info</th>
+                <th scope="col">Notes</th>
+            </tr>
+            </thead>
+           
+            <tbody id="batteryInfo">
+                @* @foreach (Battery batt in Model.Batteries) *@
+                @* { *@
+                @*     <tr> *@
+                @*         <td> *@
+                @*             <a href="@Url.Action("Index", "Intervention", new *@
+                @*                      { intervention_battery_id = @batt.id })"> *@
+                @*                 intervention *@
+                @*             </a> *@
+                @*         </td> *@
+                @*         <td>@batt.id</td> *@
+                @*         <td>@batt.BType</td> *@
+                @*         <td>@batt.Status</td> *@
+                @*         <td>@batt.DateOfCommissioning</td> *@
+                @*         <td>@batt.DateOfLastInspection</td> *@
+                @*         <td>@batt.CertificateOfOperations</td> *@
+                @*         <td>@batt.Info</td> *@
+                @*         <td>@batt.Notes</td> *@
+           
+            @* } *@
+            </tbody>
+        </table>
+    </div>
 
-        <h3>Columns</h3>
-        <div class="table-responsive">
-            <table class="table table-striped table-sm">
-                <thead>
-                <tr>
-                    <th scope="col"></th>
-                    <th scope="col">ID</th>
-                    <th scope="col">Type</th>
-                    <th scope="col">Floors</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">Info</th>
-                    <th scope="col">Notes</th>
-                </tr>
-                </thead>
-                <tbody>
-                    @foreach (Column col in Model.Columns)
-                    {
-                        <tr>
-                            <td>
-                                <a href="@Url.Action("Index", "Intervention", new
-                                         { intervention_column_id = @col.id })">
-                                    intervention
-                                </a>
-                            </td>
-                            <td>@col.id</td>
-                            <td>@col.ColumnType</td>
-                            <td>@col.NbOfFloorsServed</td>
-                            <td>@col.Status</td>
-                            <td>@col.Info</td>
-                            <td>@col.Notes</td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
+    <h3>Columns</h3>
+    <div class="table-responsive">
+        <table class="table table-striped table-sm">
+            <thead>
+            <tr>
+                <th scope="col"></th>
+                <th scope="col">ID</th>
+                <th scope="col">Type</th>
+                <th scope="col">Floors</th>
+                <th scope="col">Status</th>
+                <th scope="col">Info</th>
+                <th scope="col">Notes</th>
+            </tr>
+            </thead>
+           
+            <tbody id="columnInfo">
+                @* @foreach (Column col in Model.Columns) *@
+                @* { *@
+                @*     <tr> *@
+                @*         <td> *@
+                @*             <a href="@Url.Action("Index", "Intervention", new *@
+                @*                      { intervention_column_id = @col.id })"> *@
+                @*                 intervention *@
+                @*             </a> *@
+                @*         </td> *@
+                @*         <td>@col.id</td> *@
+                @*         <td>@col.ColumnType</td> *@
+                @*         <td>@col.NbOfFloorsServed</td> *@
+                @*         <td>@col.Status</td> *@
+                @*         <td>@col.Info</td> *@
+                @*         <td>@col.Notes</td> *@
+          
+            @* } *@
+            </tbody>
+        </table>
+    </div>
 
-        <h3>Elevators</h3>
-        <div class="table-responsive">
-            <table class="table table-striped table-sm">
-                <thead>
-                <tr>
-                     <th scope="col"></th>
-                    <th scope="col">ID</th>
-                    <th scope="col">Serial #</th>
-                    <th scope="col">Model</th>
-                    <th scope="col">Type</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">Commission</th>
-                    <th scope="col">Inspected</th>
-                    <th scope="col">Certified by</th>
-                    <th scope="col">Info</th>
-                    <th scope="col">Notes</th>
-                </tr>
-                </thead>
-                <tbody>
-                    @foreach (Elevator elev in Model.Elevators)
-                    {
-                        <tr>
-                            <td>
-                                <a href="@Url.Action("Index", "Intervention", new
-                                         { intervention_elevator_id = @elev.id })">
-                                    intervention
-                                </a>
-                            </td>
-                            <td>@elev.id</td>
-                            <td>@elev.SerialNumber</td>
-                            <td>@elev.Model</td>
-                            <td>@elev.ElevatorType</td>
-                            <td>@elev.Status</td>
-                            <td>@elev.DateOfCommissioning</td>
-                            <td>@elev.DateOfLastInspection</td>
-                            <td>@elev.CertificateOfInspection</td>
-                            <td>@elev.Info</td>
-                            <td>@elev.Notes</td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
+    <h3>Elevators</h3>
+    <div class="table-responsive">
+        <table class="table table-striped table-sm">
+            <thead>
+            <tr>
+                <th scope="col"></th>
+                <th scope="col">ID</th>
+                <th scope="col">Serial #</th>
+                <th scope="col">Model</th>
+                <th scope="col">Type</th>
+                <th scope="col">Status</th>
+                <th scope="col">Commission</th>
+                <th scope="col">Inspected</th>
+                <th scope="col">Certified by</th>
+                <th scope="col">Info</th>
+                <th scope="col">Notes</th>
+            </tr>
+            </thead>
 
-</main>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+            <tbody id="elevatorInfo">
+            @* <tbody> *@
+            @*     @foreach (Elevator elev in Model.Elevators) *@
+            @*     { *@
+            @*         <tr> *@
+            @*             <td> *@
+            @*                 <a href="@Url.Action("Index", "Intervention", new *@
+            @*                          { intervention_elevator_id = @elev.id })"> *@
+            @*                     intervention *@
+            @*                 </a> *@
+            @*             </td> *@
+            @*             <td>@elev.id</td> *@
+            @*             <td>@elev.SerialNumber</td> *@
+            @*             <td>@elev.Model</td> *@
+            @*             <td>@elev.ElevatorType</td> *@
+            @*             <td>@elev.Status</td> *@
+            @*             <td>@elev.DateOfCommissioning</td> *@
+            @*             <td>@elev.DateOfLastInspection</td> *@
+            @*             <td>@elev.CertificateOfInspection</td> *@
+            @*             <td>@elev.Info</td> *@
+            @*             <td>@elev.Notes</td> *@
+            @*         </tr> *@
+            @*     } *@
+            </tbody>
+        </table>
+    </div>
+
+    </main>
+}
+
+@section Scripts {
+<script>
+function addressScript() {
+    var userID = document.getElementById("userCustomerID").value;
+    $.ajax({
+        cache: false,
+        url: 'https://rocketapis.azurewebsites.net/api/address/',
+        type: 'GET',
+        dataType: 'json',
+        success: function (obj) {
+            for (var i = 0; i < obj.length; i++){
+                if (obj[i].id == userID){                            
+                    $("#addressInfo").append('<td><a  href="/Product/ModifyAddressInfo/'+obj[i].id+'">Modify</a></td><td>'+obj[i].id+'</td><td>'+obj[i].typeOfAddress+'</td><td>'+obj[i].status+'</td><td>'+obj[i].entity+'</td><td>'+obj[i].numberAndStreet+'</td><td>'+obj[i].apt+'</td><td>'+obj[i].city+'</td><td>'+obj[i].postalCode+'</td><td>'+obj[i].country+'</td><td>'+obj[i].notes+'</td>');
+                 
+                }
+            }
+        },
+        error: function (obj) {
+            console.log('test');
+        }
+    });
+}
+function buildingScript() {
+    var buildingID = document.getElementById("userCustomerID").value;
+    $.ajax({
+        cache: false,
+        url: 'https://rocketapis.azurewebsites.net/api/building/',
+        type: 'GET',
+        dataType: 'json',
+        success: function (obj) {
+            for (var i = 0; i < obj.length; i++){
+                if (obj[i].customer_id == buildingID){                            
+                    $("#buildingInfo").append('<tr><td><a  href="/Intervention/Index/">Report Problem</a></td><td>'+obj[i].id+'</td><td>'+obj[i].fullNameOfTheBuildingAdministrator+'</td><td>'+obj[i].emailOfTheAdministratorOfTheBuilding+'</td><td>'+obj[i].phoneNumberOfTheBuildingAdministrator+'</td><td>'+obj[i].fullNameOfTheTechContactForTheBuilding+'</td><td>'+obj[i].techContactEmail+'</td><td>'+obj[i].techContactPhone+'</td></tr>');
+                                       var test = document.getElementsByClassName('userBuildingID').value = obj[i].id;
+                                       setTimeout(batteryScript, 1);
+                                       console.log("buildings:" + test)
+                                       console.log(">>>>>>>>>")
+                                   
+                }
+            }
+        },
+        error: function (obj) {
+            console.log('test');
+        }
+    });
+}
+function batteryScript() {
+    // var batteryID = document.getElementById("userCustomerID").value;
+    // var buildingID = document.getElementById("userBuildingID").value;
+    var buildingID = document.getElementsByClassName("userBuildingID").value;
+    console.log(buildingID)
+    $.ajax({
+        cache: false,
+        url: 'https://rocketapis.azurewebsites.net/api/batteries/',
+        type: 'GET',
+        dataType: 'json',
+        success: function (obj) {
+            for (var i = 0; i < obj.length; i++){
+                if (obj[i].building_id == buildingID){                            
+                    $("#batteryInfo").append('<tr><td><a  href="/Intervention/Index/">Report Problem</a></td><td>'+obj[i].id+'</td><td>'+obj[i].bType+'</td><td>'+obj[i].status+'</td><td>'+obj[i].dateOfCommissioning+'</td><td>'+obj[i].dateOfLastInspection+'</td><td>'+obj[i].certificateOfOperations+'</td><td>'+obj[i].info+'</td><td>'+obj[i].notes+'</td></tr>');
+                    // document.getElementById('userBuildingID').value = obj[i].id;
+                    var test = document.getElementById('userBatteryID').value = obj[i].id;
+                    setTimeout(columnScript, 1);
+                    console.log("batteries:" + test)
+                       
+                }
+            }
+        },
+        error: function (obj) {
+            console.log('test');
+        }
+    });
+}
+function columnScript() {
+    // var columnID = document.getElementById("userCustomerID").value;
+    // var columnID = document.getElementById("userBuildingID").value;
+    var columnID = document.getElementById("userBatteryID").value;
+    $.ajax({
+        cache: false,
+        url: 'https://rocketapis.azurewebsites.net/api/columns/',
+        type: 'GET',
+        dataType: 'json',
+        success: function (obj) {
+            for (var i = 0; i < obj.length; i++){
+                if (obj[i].battery_id == columnID){                            
+                    $("#columnInfo").append('<tr><td><a  href="/Intervention/Index/">Report Problem</a></td><td>'+obj[i].id+'</td><td>'+obj[i].columnType+'</td><td>'+obj[i].nbOfFloorsServed+'</td><td>'+obj[i].status+'</td><td>'+obj[i].info+'</td><td>'+obj[i].notes+'</td></tr>');
+                    document.getElementById('userColumnID').value = obj[i].id;
+                    setTimeout(elevatorScript, 1);
+                }
+            }
+        },
+        error: function (obj) {
+            console.log('test');
+        }
+    });
+}
+function elevatorScript() {
+    var columnID = document.getElementById("userColumnID").value;
+    $.ajax({
+        cache: false,
+        url: 'https://rocketapis.azurewebsites.net/api/elevators/',
+        type: 'GET',
+        dataType: 'json',
+        success: function (obj) {
+            for (var i = 0; i < obj.length; i++){
+                if (obj[i].column_id == columnID){                            
+                    $("#elevatorInfo").append('<tr><td><a  href="/Intervention/Index/">Report Problem</a></td><td>'+obj[i].id+'</td><td>'+obj[i].serialNumber+'</td><td>'+obj[i].model+'</td><td>'+obj[i].elevatorType+'</td><td>'+obj[i].status+'</td><td>'+obj[i].dateOfCommissioning+'</td><td>'+obj[i].dateOfLastInspection+'</td><td>'+obj[i].certificateOfInspection+'</td><td>'+obj[i].info+'</td><td>'+obj[i].notes+'</td></tr>');
+                    document.getElementById('userColumnID').value = obj[i].id;
+                }
+            }
+        },
+        error: function (obj) {
+            console.log('test');
+        }
+    });
+}
+$( document ).ready(function() {
+var userEmail = document.getElementById("userEmailReal").innerHTML;
+
+    $.ajax({
+        cache: false,
+        url: 'https://rocketapis.azurewebsites.net/api/customer/',
+        type: 'GET',
+        dataType: 'json',
+        success: function (obj) {
+            for (var i = 0; i < obj.length; i++){
+                if (obj[i].emailOfTheCompany == userEmail){                            
+                    $("#customerInfo").append('<td><a  href="/Product/ModifyContactInfo/'+obj[i].id+'">Modify</a></td><td>'+obj[i].id+'</td><td>'+obj[i].companyName+'</td><td>'+obj[i].nameOfContact+'</td><td>'+obj[i].companyContactPhone+'</td><td>'+obj[i].emailOfTheCompany+'</td><td>'+obj[i].companyDescription+'</td><td>'+obj[i].nameOfServiceTechAuthority+'</td><td>'+obj[i].techAuhtorityPhone+'</td><td>'+obj[i].techManagerServiceEmail+'</td><br>');
+                    document.getElementById('userCustomerID').value = obj[i].id;
+                    setTimeout(addressScript, 1);
+                    setTimeout(buildingScript, 1);
+                    setTimeout(batteryScript, 1);
+                    setTimeout(columnScript, 1);
+                }
+            }
+        },
+        error: function (obj) {
+            console.log('test');
+        }
+    });
+    
+        // var buildingID = document.getElementById("userBuildingID").value;
+        // $.ajax({
+        //     cache: false,
+        //     url: 'https://rocketapis.azurewebsites.net/api/batteries/',
+        //     type: 'GET',
+        //     dataType: 'json',
+        //     success: function (obj) {
+        //         for (var i = 0; i < obj.length; i++){
+        //             if (obj[i].building_id == buildingID){                            
+        //                 $("#batteryInfo").append('<tr><td><a  href="/Intervention/Index/">Report Problem</a></td><td>'+obj[i].id+'</td><td>'+obj[i].bType+'</td><td>'+obj[i].status+'</td><td>'+obj[i].dateOfCommissioning+'</td><td>'+obj[i].dateOfLastInspection+'</td><td>'+obj[i].certificateOfOperations+'</td><td>'+obj[i].info+'</td><td>'+obj[i].notes+'</td></tr>');
+        //                 // document.getElementById('userBuildingID').value = obj[i].id;
+        //                 var test = document.getElementById('userBatteryID').value = obj[i].id;
+        //                 setTimeout(columnScript, 1);
+        //                 console.log("batteries:" + test)
+        //                   
+        //             }
+        //         }
+        //     },
+        //     error: function (obj) {
+        //         console.log('test');
+        //     }
+        // });
+    
+});
+</script>
+}
+    
+
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" crossorigin="anonymous"></script>
     <script src="~/js/dashboard.js"></script>

@@ -8,7 +8,7 @@ A customer portal for customers to view and track their solutions and make servi
 ### How to use
 
 ```bash
-Login: Any email from the customers table (ie. bradly@fahey.com)
+Login: Any email from the customers table (ie. nettie_moen@nitzsche.biz)
 Password: Same for all ('Codeboxx1!')
 ```
 
@@ -51,6 +51,6 @@ Link to API endpoints: [Rocket Elevators Foundation - REST API](https://github.c
 ![](https://lh3.googleusercontent.com/pw/AM-JKLUvAyx17Fxs3_naQuP0i0N-ycywhA3TP8GY2bYRJxM1NTx4HVVlNzsJGBRVSFyLBZ_zp8WPqQkVO_yKeCU-q6IwmvpKi854FKcikZ_UDtt_wlrDiuOfwEWASUmVkb6C31muWlO3wGl9gVBZJYMNjETP=w2304-h318-no?authuser=0)
 
 ### Other Notes
-No other notes.
+On Thursday, Perry and I decided to partner up for this project.
 
 ----------------
