@@ -8,7 +8,7 @@ A customer portal for customers to view and track their solutions and make servi
 ### How to use
 
 ```bash
-Login: Any email from the customers table (ie. nettie_moen@nitzsche.biz)
+Login: Any email from the customers table (ie. nicolas.genest@codeboxx.biz)
 Password: Same for all ('Codeboxx1!')
 ```
 
